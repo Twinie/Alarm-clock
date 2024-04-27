@@ -6,6 +6,8 @@ let allInput = Array.from(document.querySelectorAll("input"));
 let hourInput = document.getElementById("hour");
 let minInput = document.getElementById("min");
 let secInput = document.getElementById("sec");
+
+let alarmId = 0;
 const alarms = [];
 
 /**
@@ -29,8 +31,6 @@ function setTimeonClock() {
     });
   }, 1000);
 }
-
-let alarmId = 0;
 
 /**
  * Add Zero before a single digit hour OR min OR sec
@@ -66,11 +66,13 @@ function enforceMinMax(inp) {
 }
 
 //to avoid entering decimal values
-allInput.forEach((input) => {
-  input.addEventListener("input", function () {
-    input.value = Math.round(this.value);
+function validateDecimal() {
+  allInput.forEach((input) => {
+    input.addEventListener("input", function () {
+      input.value = Math.round(this.value);
+    });
   });
-});
+}
 
 //Event handler function to add an alarm to the list when clicked
 function submitAlarm(e) {
@@ -122,5 +124,7 @@ function submitAlarm(e) {
   });
 }
 
+// Call initial functions and event handlers
 setTimeonClock();
+validateDecimal();
 submitBtn.addEventListener("click", submitAlarm);
